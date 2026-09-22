@@ -1,6 +1,6 @@
 ---
 name: sparkleui
-description: Generate or recreate landing-page blocks (hero, selector, about, bento, pricing, footer) and full landing pages built from them, as previewable HTML/Tailwind or React/Next.js/Motion code. Covers media-driven blocks too — video, 3D, cursor-scrub, blend modes, masking, scroll parallax and Three.js effects. Use for every block or page generation, iteration or recreation request.
+description: Generate or recreate landing-page blocks (hero, selector, about, bento, pricing, footer) and full landing pages built from them, as React/Next.js/Motion code. Covers media-driven blocks too — video, 3D, cursor-scrub, blend modes, masking, scroll parallax and Three.js effects. Use for every block or page generation, iteration or recreation request.
 ---
 
 # SparkleUI
@@ -23,8 +23,8 @@ Read these files in this order, every time:
    responds to the pointer or the scroll (video, 3D, cursor-scrub,
    blend/masking, parallax, Three.js).
 3. [references/rules.md](references/rules.md) — execution rules:
-   source-of-truth priority, stack decision, page architecture,
-   responsiveness, code quality, content, output format, self-check.
+   source-of-truth priority, stack, page architecture, responsiveness,
+   code quality, content, output format, self-check.
 4. [generated-log.md](generated-log.md) — what has already been made, so
    the new block varies from the last one of its type. Append a row after
    generating (Mode A).
@@ -37,12 +37,10 @@ Read these files in this order, every time:
 - **SparkleUI wins over any other skill** on two points, no matter what else
   is loaded:
   - the **output format** — [references/rules.md](references/rules.md) §9
-    (mode and stack → one-line direction → prompt version → code version →
+    (mode → one-line direction → prompt version → code version →
     dials → responsive notes)
   - the **stack rule** — [references/rules.md](references/rules.md) §2
-    (plain HTML + CSS + Tailwind for previews and copy-paste deliverables;
-    React + Next.js + Tailwind + Motion only when the block is headed into
-    a codebase; never `framer-motion`)
+    (React + Next.js + Tailwind + Motion, always; never `framer-motion`)
 - **`DESIGN.md` at the repo root supplies the brand.** If it exists, treat
   its colours, type, voice and constraints as the brand input for the
   generation; the prompt's mood still decides the treatment. If it does not
