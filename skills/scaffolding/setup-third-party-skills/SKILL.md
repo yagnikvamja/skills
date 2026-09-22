@@ -12,16 +12,22 @@ list to the user, grouped the same way.
 
 ## 2. Ask which to install
 
-Ask the user which of the listed skills they want installed (multi-select),
-and which coding agent(s) to install them for. Don't install anything they
-didn't pick.
+Ask the user which of the listed skills they want installed (multi-select).
+
+**Default target is `.claude` and `.agents` only — install there without
+asking.** Separately ask whether they also want any *other* coding agent
+(e.g. `cursor`, `gemini`, `github` for Copilot, `codex`'s own non-`.agents`
+manifest, etc.) — only add one if they explicitly say so. Don't install
+anything, skill or agent, they didn't pick.
 
 ## 3. Install the picked skills
 
 Most sources are plain GitHub skill repos the `skills` CLI can add directly;
 a few ship their own installer instead. **Run each source's `Install`
 command from `THIRD-PARTY.md` exactly as written — do not assume
-`npx skills@latest add <owner>/<repo>` works for every source.**
+`npx skills@latest add <owner>/<repo>` works for every source.** Both
+default commands already target `.claude` + `.agents` only; append flags
+for any extra agent the user asked for in step 2.
 
 - **For a `skills` CLI source, always pass `-a`/`--agent` explicitly** —
   once per agent, e.g. `--agent claude-code --agent universal`
@@ -29,13 +35,20 @@ command from `THIRD-PARTY.md` exactly as written — do not assume
   name and fails). Running the command through Bash gives the CLI no TTY,
   so it prints `Agent detected — installing non-interactively` and silently
   installs for the running agent only, skipping `.agents/skills/`
-  (`universal`) entirely unless it's named explicitly. Include `universal`
-  in every run so the skill also lands in the shared `.agents/skills/`
-  location, plus whichever agent(s) the user picked (e.g. `claude-code`,
-  `codex`). Also pass `-s`/`--skill` for the specific skill(s) picked from
-  that source, and `-y` to skip the now-redundant confirmation prompt.
-- For a source with its own installer, follow that installer's own prompts
-  instead — it does not take `--agent`.
+  (`universal`) entirely unless it's named explicitly. `claude-code` +
+  `universal` is the default pair (`.claude/skills/` + `.agents/skills/`);
+  add more agent flags only for what the user asked for in step 2. Also
+  pass `-s`/`--skill` for the specific skill(s) picked from that source,
+  and `-y` to skip the now-redundant confirmation prompt.
+- For a source with its own installer, use the exact flags given in its
+  `Install` command — none of these run interactively either (no TTY in
+  Bash), so any installer that normally prompts will instead silently fall
+  back to an auto-detected default rather than asking. That default can
+  include tools the user doesn't use (e.g. impeccable defaulting in
+  `github`, installing into `.github/` for Copilot). Never assume the bare
+  command from THIRD-PARTY.md is enough — check its flags actually pin the
+  target tools (default: `.claude` + `.agents` only) before running it, and
+  add a flag for any extra agent the user asked for.
 
 Repeat once per distinct source that has a pick.
 
