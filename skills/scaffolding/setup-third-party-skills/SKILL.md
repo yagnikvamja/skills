@@ -6,13 +6,32 @@ disable-model-invocation: true
 
 ## 1. List the third-party skills
 
-Read [`THIRD-PARTY.md`](./THIRD-PARTY.md). It groups skills by their source,
-each with the `Install` command that entry actually needs. Present the full
-list to the user, grouped the same way.
+Read [`THIRD-PARTY.md`](./THIRD-PARTY.md). It groups skills into categories
+(e.g. **Design skills**, **Code skills**) at the `##` level, and within each
+category splits skills into **Core** (used on every section) and
+**Situational** (installed, but only invoked when the task calls for it) at
+the `###` level — a category may currently only have a Core tier if no
+Situational skills exist for it yet. Within each tier, skills are grouped by
+their source, each with the `Install` command that entry actually needs.
+Present the full file to the user, grouped the same way: category by
+category, tier by tier within each.
 
 ## 2. Ask which to install
 
-Ask the user which of the listed skills they want installed (multi-select).
+Ask which skills to install as **one multi-select question per tier that
+exists** — e.g. "which Design → Core skills?", then "which Design →
+Situational skills?", then "which Code → Core skills?", and so on for any
+further categories/tiers in the file. Never merge two tiers (even within the
+same category) or two categories into one question: a user who wants every
+Design-Core skill may still want only a couple of Situational ones, and a
+user working on QA may want all of Code but none of Design. One question per
+`###` tier keeps those choices independent.
+
+A skill that is cross-listed under more than one tier (e.g.
+`vercel-composition-patterns` appears under both Design → Core and Code →
+Core because it serves both purposes) is still just one skill — picking it
+in either question is enough; don't ask about it twice or treat the two
+listings as separate installs.
 
 **Default target is `.claude` and `.agents` only — install there without
 asking.** Separately ask whether they also want any *other* coding agent
@@ -50,7 +69,13 @@ for any extra agent the user asked for in step 2.
   target tools (default: `.claude` + `.agents` only) before running it, and
   add a flag for any extra agent the user asked for.
 
-Repeat once per distinct source that has a pick.
+Repeat once per distinct source that has a pick. **A source that shows up in
+more than one tier or category** (e.g. `emilkowalski/skill` under Design →
+Core and Design → Situational, or `vercel-labs/agent-skills` under Design →
+Core and Code → Core) gets one combined install command — merge the `-s`
+flags from every tier/category it was picked from rather than running the
+source's install more than once, and de-duplicate any `-s` flag for a skill
+that was cross-listed (like `composition-patterns`) so it isn't passed twice.
 
 ## 4. Confirm
 
