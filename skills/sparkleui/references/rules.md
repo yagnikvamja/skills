@@ -26,7 +26,7 @@ Then read, in this order:
 2. **media-skill.md** — if the block involves video, 3D, blending, masking,
    parallax or cursor interaction
 3. **This rules.md** — technical execution rules
-4. **generated-log.md** — what has already been made, so the new block
+4. **../generated-log.md** — what has already been made, so the new block
    varies from it. Append to it after generating.
 
 If something genuinely needed is missing — no brand mood, no reference for a
@@ -376,7 +376,7 @@ Each of these was shipped, reported, and only then understood.
   order). Added the `font-700` class of failure, `dvh` for mobile viewport
   height, the `IntersectionObserver` recipe for scroll reveals, the nav-height
   padding arithmetic, and the frosted-nav mechanism. Reordered §1 so the
-  user's prompt is stated as outranking the files, added `generated-log.md` to
+  user's prompt is stated as outranking the files, added `../generated-log.md` to
   it, and removed the stack from the list of things to ask about.
 - **Sep 15, 2026** — v2. Added **§4 Diagnosis Discipline** and the failure
   appendix. Added **§5 Page Architecture** (shared alignment system, joined

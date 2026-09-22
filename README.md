@@ -16,10 +16,8 @@
     npx skills@latest add jd-solanki/skills
     ```
 
-2. Pick the skills you want, and which coding agents you want to install them on. **Make sure you select /setup-jd-solanki-skills.**
-3. Run `/setup-jd-solanki-skills` in your agent. It will:
-    - Upsert instructions into your `CLAUDE.md` or `AGENTS.md` file(s) for how to load and use these skills.
-    - Suggest you install and use third-party skills that I mostly use in my projects. See [`THIRD-PARTY.md`](./skills/scaffolding/setup-jd-solanki-skills/THIRD-PARTY.md) for a list of third-party skills.
+2. Pick the skills you want, and which coding agents you want to install them on. **Make sure you select /setup-third-party-skills.**
+3. Run `/setup-third-party-skills` in your agent. It suggests third-party skills that I mostly use in my projects and installs the ones you pick. See [`THIRD-PARTY.md`](./skills/scaffolding/setup-third-party-skills/THIRD-PARTY.md) for the list.
 4. Bam - you're ready to go.
 5. Install `/context-engineering`, `/setup-project-context` and `/audit-project-context` together. Run `/setup-project-context` to give the agent this repo's own context — its words, rules, reasons, and the fences it must not walk into.
 
@@ -54,4 +52,4 @@ Skills taken from elsewhere and changed. They are maintained here now, so they l
 - **[`skills/in-progress/grilling`](./skills/in-progress/grilling/)** — from [mattpocock/skills](https://github.com/mattpocock/skills).
   The frontier is filtered by **altitude**: the goal always clears it, a technical question only when it is a one-way door, and every two-way door is the agent's to settle and list under **Assumed**. `/codebase-design` and `/domain-modeling` supply the vocabulary for the two levels, and the session closes on an ADR offer.
 
-Used unchanged, so not forked: see [`THIRD-PARTY.md`](./skills/scaffolding/setup-jd-solanki-skills/THIRD-PARTY.md).
+Used unchanged, so not forked: see [`THIRD-PARTY.md`](./skills/scaffolding/setup-third-party-skills/THIRD-PARTY.md).

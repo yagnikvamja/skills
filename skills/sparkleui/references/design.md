@@ -11,7 +11,7 @@ This file says **what a block should be**. Its companions:
 
 - `rules.md` — how it gets built and delivered
 - `media-skill.md` — video, 3D, blending, masking, cursor and scroll effects
-- `generated-log.md` — what has already been made, so the next one differs
+- `../generated-log.md` — what has already been made, so the next one differs
 
 ---
 
@@ -38,10 +38,10 @@ is in play in the opening line of the response.**
 ### Mode A — Original generation
 
 The user describes a brand and a mood. Everything below about varying layout,
-palette and type applies in full. Check `generated-log.md` first and pick a
+palette and type applies in full. Check `../generated-log.md` first and pick a
 different combination than the last block of that type.
 
-`generated-log.md` is the project's memory of what has already been made. It
+`../generated-log.md` is the project's memory of what has already been made. It
 lives alongside these files, and it is appended to — never rewritten — at the
 end of every generation, with one row for the block and a short "avoid
 repeating" line. Without that step the variation rule cannot be enforced.
@@ -154,7 +154,7 @@ moods beyond them, on demand.
 ## Layout Variants
 
 Choose one per generation; vary from the previous block of that type in
-`generated-log.md`.
+`../generated-log.md`.
 
 - **Centered** — headline + subtext + CTA stacked over the background
 - **Split** — text block one side, visual subject the other
@@ -478,7 +478,7 @@ Decorative word hides below lg.
 - Never sacrifice text readability for aesthetics — always solve contrast,
   with a scrim on dark imagery or `text-shadow` on a light panel.
 - Never reuse the exact same layout+background+type combination twice in a row
-  (Mode A only). Check `generated-log.md`.
+  (Mode A only). Check `../generated-log.md`.
 - Always keep headline + subtext + CTA as the non-negotiable content trio.
 - Never silently substitute a different layout, colour or asset because it is
   easier. Name the problem and offer the nearest alternative.
@@ -493,7 +493,7 @@ Decorative word hides below lg.
       closest one?
 - [ ] Do background, typography and copy tone reinforce one feeling?
 - [ ] Is the layout different from the previous block of this type in
-      `generated-log.md`? (Mode A)
+      `../generated-log.md`? (Mode A)
 - [ ] Is contrast solved over the busiest part of the background — and with a
       scrim only where a scrim belongs?
 - [ ] Is the CTA label a verb?
@@ -503,7 +503,7 @@ Decorative word hides below lg.
       round only its top corners with no gap below?
 - [ ] Are decorative marks anchored to the subject rather than a column?
 - [ ] Is the config block present and in plain language?
-- [ ] Has `generated-log.md` been appended to?
+- [ ] Has `../generated-log.md` been appended to?
 
 ---
 
@@ -524,7 +524,7 @@ Decorative word hides below lg.
   rules.md (Next.js, `.jsx` unless TypeScript); theme block, font loading and
   scroll reveals specified for Branch B; data-URI embedding given a rule; the
   marginalia anchoring reference pointed at media-skill.md §6;
-  `generated-log.md` defined; and the auto-advancing selector corrected so a
+  `../generated-log.md` defined; and the auto-advancing selector corrected so a
   click stops the cycle rather than restarting it.
 - **Sep 15, 2026** — v1.3. Added **Two Modes of Work**; a **Landing Pages**
   section; an **Interaction Patterns** section; a mandatory **dial block**
