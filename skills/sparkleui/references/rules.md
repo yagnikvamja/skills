@@ -6,8 +6,8 @@
 
 Hard operational rules for generating any block (Hero, About, Bento, Pricing,
 Footer, etc.) and any landing page built from them. `design.md` governs
-*creative direction* — what it should look like, and the anatomy of each
-block type, heroes included. This file governs *execution* — how it gets
+_creative direction_ — what it should look like, and the anatomy of each
+block type, heroes included. This file governs _execution_ — how it gets
 built and delivered. Both apply together, every time.
 
 ---
@@ -15,8 +15,8 @@ built and delivered. Both apply together, every time.
 ## 1. Source of Truth Priority
 
 **The user's current prompt outranks everything below it.** Where it
-conflicts with any of these files, follow the prompt for *that generation
-only* — and do not silently edit the underlying files to match.
+conflicts with any of these files, follow the prompt for _that generation
+only_ — and do not silently edit the underlying files to match.
 
 Then read, in this order:
 
@@ -31,8 +31,8 @@ Then read, in this order:
 
 If something genuinely needed is missing — no brand mood, no reference for a
 recreation — ask one short clarifying question rather than guessing and
-generating anyway. **The stack is never one of those questions:** it follows
-from where the block is going (§2).
+generating anyway. **The stack is never one of those questions:** it is
+always React + Next.js + Tailwind + Motion (§2).
 
 **Exception — don't ask for what you can look at.** If the answer is in a
 file, a URL or an image the user already supplied, check it. Questions are
@@ -40,29 +40,20 @@ for decisions only the user can make, not for facts sitting in front of you.
 
 ---
 
-## 2. Stack Decision Logic
+## 2. Stack
 
-Decide the stack **per block**, not globally. `design.md` holds the full
-branch rule; the short form:
+Every block is **React + Next.js + Tailwind + Motion**, always — there is no
+other branch to choose. `design.md` holds the full stack rule.
 
-**Branch B — plain HTML + CSS + Tailwind** when the block is a standalone
-preview, a copy-paste deliverable, or anything the user wants to open and
-look at immediately. This is where almost all exploration happens, because
-it is the only branch that can be previewed without a build step.
-
-**Branch A — React + Next.js + Tailwind + Motion** when the block is headed
-into a real codebase. Motion is imported as `import { motion } from "motion/react"`
-— **never** `framer-motion`.
-
-**Never escalate out of habit.** Interactive state is not on its own a reason
-to reach for React. A carousel, an auto-advancing rail, a cursor effect and a
-scroll parallax are each a few dozen lines of plain JavaScript, and staying
-in one branch keeps a long-running page reviewable. Escalate when the user
-asks for the codebase version.
-
-**When escalating**, state clearly at the top of the output *why* React was
-necessary (one sentence), so the user — who is a designer, not a developer —
-understands the tradeoff.
+- Motion is imported as `import { motion } from "motion/react"` — **never**
+  `framer-motion`, which is the old package name for the same library and
+  the import path is wrong.
+- Delivered as standalone component files, PascalCase, **`.jsx`** unless the
+  user says the project is TypeScript — then `.tsx`. Not wrapped in a
+  preview page.
+- Interactive state (a carousel, an auto-advancing rail, a cursor effect, a
+  scroll parallax) is built the same way regardless — React state and
+  effects, not a reason to second-guess the stack.
 
 ---
 
@@ -72,7 +63,7 @@ understands the tradeoff.
   and the user's prompt — do not invent brand details, color meanings,
   or structural patterns that weren't specified anywhere.
 - If the requested style isn't covered by the Reference Direction Library in
-  design.md, extrapolate using the same *mood-matching logic*, not a random
+  design.md, extrapolate using the same _mood-matching logic_, not a random
   new pattern — stay inside the system's spirit even for novel moods.
 - Never silently substitute a different layout/style because it's "easier" —
   if a request is genuinely not feasible in the current stack, say so and
@@ -133,7 +124,7 @@ everything between is square, and no vertical padding sits between them.
 
 - It must live **outside** every panel. A sticky element positions against
   the nearest ancestor with non-visible overflow, so a nav inside a panel
-  that clips its media sticks only *within that panel* and scrolls away with
+  that clips its media sticks only _within that panel_ and scrolls away with
   it — it looks broken rather than being obviously broken, which is worse.
 - Transparent at rest, picking up a frosted background, hairline border and
   soft shadow once the page has moved. The mechanism: one scroll listener,
@@ -147,7 +138,7 @@ everything between is square, and no vertical padding sits between them.
   min-height: calc(100dvh - var(--nav-space));
   ```
 
-  Use `dvh`, not `vh`: on mobile `100vh` is the *large* viewport, so a
+  Use `dvh`, not `vh`: on mobile `100vh` is the _large_ viewport, so a
   `vh`-sized hero overflows the visible screen by the height of the URL bar.
 
   **Measure the whole sticky wrapper, including its padding, and count any
@@ -160,22 +151,23 @@ everything between is square, and no vertical padding sits between them.
   park their target underneath the bar.
 
 **Every section reveals on scroll**, using the same timing family as the
-hero. In Branch B that means an `IntersectionObserver`, not a load-time
-`animation-delay` — a delay fires while the section is still below the fold,
-so by the time it is scrolled to, the reveal is already over:
+hero. That means Motion's `whileInView` (or an `IntersectionObserver` behind
+a `useEffect` when the reveal needs more control than `whileInView` gives),
+not a load-time delay — a delay fires while the section is still below the
+fold, so by the time it is scrolled to, the reveal is already over:
 
-```js
-var io = new IntersectionObserver(function (entries) {
-  entries.forEach(function (e) {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('in');
-    io.unobserve(e.target);          // reveal once, never re-run
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+```jsx
+<motion.section
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: '0px 0px -8% 0px', amount: 0.15 }}
+  transition={{ duration: 0.4 }}
+>
 ```
 
-The class carries the animation; the element is visible without it, so
-nothing is hidden if the script never runs or motion is reduced.
+The element is visible without JavaScript (its rest state is opacity 1
+unless `initial` is applied), so nothing is hidden if motion is reduced —
+gate the animated props behind `useReducedMotion` from `motion/react`.
 
 ---
 
@@ -199,13 +191,13 @@ nothing is hidden if the script never runs or motion is reduced.
 
 ## 7. Code Quality Rules
 
-- Use semantic HTML (`<header>`, `<nav>`, `<section>`, `<h1>`, etc.) —
+- Use semantic markup (`<header>`, `<nav>`, `<section>`, `<h1>`, etc.) —
   never generic `<div>` soup.
 - Include `alt` text for all images. Decorative layers get `aria-hidden`.
-- No inline `style=""` attributes — Tailwind classes only, unless a value is
+- No inline `style={{}}` props — Tailwind classes only, unless a value is
   genuinely dynamic and computed at runtime.
-- Keep naming consistent: PascalCase for React components (`HeroSplit.tsx`),
-  kebab-case for plain HTML/CSS files.
+- Keep naming consistent: PascalCase for React components (`HeroSplit.jsx` /
+  `HeroSplit.tsx`).
 - No unused code, commented-out blocks, or placeholder `// TODO` in final
   output. When a feature is removed, remove its CSS, its markup and its
   variables in the same pass.
@@ -216,44 +208,31 @@ nothing is hidden if the script never runs or motion is reduced.
   is wrapped, why this blend mode, why this value is computed rather than
   guessed.
 
-### Tailwind CDN — known limits
+### Tailwind — known limits
 
-The Play CDN is a real compiler running in the browser, but it is not the
-build step, and these have each cost a round trip:
+Tailwind runs through the project's real build (PostCSS/Next.js), not a
+browser CDN, so most class-extraction surprises don't apply. Two still do:
 
 - **A class that isn't a real utility generates nothing, silently.** There is
   no error, no warning, no visible difference from a class that simply
   inherits — which is exactly what makes it expensive. The one that bit us:
   `font-700` is not Tailwind. The scale is
   `font-medium` / `font-semibold` / `font-bold` / `font-extrabold`, and the
-  arbitrary form is `font-[700]`. A whole file of `font-700` renders at
-  inherited weight and looks *nearly* right. **If a property looks like it
-  isn't applying, check the class exists before checking anything else.**
+  arbitrary form is `font-[700]`. **If a property looks like it isn't
+  applying, check the class exists before checking anything else.**
 - **Complex arbitrary values are fragile.** Commas are legal
   (`bg-[rgb(255,0,0)]`), but spaces are not — they must be written as `_`
   (`w-[max(1500px,_120vw)]`) — and any value the extractor can't read as one
   complete token produces no rule. Negative arbitrary values need the leading
   dash outside the bracket (`-mt-[10%]`). Anything load-bearing for layout
   belongs in a real CSS rule, where it either works or visibly doesn't.
-- **Preflight sets `img { max-width:100%; height:auto }`.** The CDN injects
-  its stylesheet into the head at runtime, so it lands after an author
-  `<style>` — which decides the winner only at equal specificity. A class,
-  an id or an inline style still beats it. So: size images from a rule with
-  real specificity, or set the dimensions from JS, and don't rely on a bare
-  `img { }` of your own.
-- **Prefer real CSS for elements built in JavaScript.** The CDN does watch
-  the DOM and will generate utilities for markup added later, so this is
-  belt-and-braces rather than a hard limit — but a JS-built component whose
-  styling lives in one CSS block is easier to reason about than one whose
-  correctness depends on class extraction, and it is the pattern the deck
-  rail uses.
 
 ### CSS animations vs JavaScript
 
 **A running CSS animation overrides inline styles on the properties it
 animates** — fill-mode has nothing to do with it. `forwards` only extends
 that override past the animation's end, which is what turns a transient
-glitch into a permanent one. So a non-`forwards` animation is *not* safe to
+glitch into a permanent one. So a non-`forwards` animation is _not_ safe to
 combine with JS either; it just breaks for a shorter time.
 
 An element whose transform or opacity is written by script must therefore not
@@ -288,8 +267,7 @@ animation on a property a script also writes.
 
 Structure the response in this order:
 
-1. **Mode and stack** — original generation or recreation; which branch and
-   why, in one sentence
+1. **Mode** — original generation or recreation, in one sentence
 2. **One-line summary** of the creative direction (mood → background
    treatment → typography choice)
 3. **Prompt version** — copy-paste-ready natural language prompt
@@ -319,16 +297,17 @@ audiences.
 
 **Build**
 
-- [ ] Simplest stack that works, and stated?
 - [ ] Works at mobile, tablet and desktop?
 - [ ] Every panel using the shared `.frame` / `.inset` rules?
 - [ ] Nothing load-bearing relying on a Tailwind arbitrary value with a comma?
 - [ ] No element with an animation on the same property a script writes?
 - [ ] Every utility class actually a real utility — no `font-700`?
-- [ ] Scroll reveals on an `IntersectionObserver`, not a load-time delay?
+- [ ] Scroll reveals on `whileInView` (or an `IntersectionObserver` behind
+      `useEffect`), not a load-time delay?
 - [ ] Anything JS-built styled with real CSS?
 - [ ] Removed features fully removed — CSS, markup and variables?
 - [ ] Every sized-from-viewport value recomputed on resize?
+- [ ] Motion imported from `motion/react`, never `framer-motion`?
 
 **Assets and copy**
 
@@ -351,26 +330,35 @@ catch the issue.
 
 Each of these was shipped, reported, and only then understood.
 
-| Symptom | Wrong guess | Actual cause |
-|---|---|---|
-| Background glow disappeared a few seconds after load | easing value; heavy overlays | `UnrealBloomPass`'s final copy pass writes alpha 1, turning the transparent canvas into an opaque rectangle |
-| Vertical seam beside a full-bleed image | image too small | Tailwind CDN silently dropped `w-[max(…,…)]` — the rule never existed |
-| Image still wrong after that was fixed | — | Preflight's `img { height:auto }` loads after the head and re-clamped it |
-| "Mystery strips" during parallax | mask needed | a moving layer ran out of image; size from `distance + travel + margin` |
-| Blue band under a pinned hero | fixable with a mask | a pinned element shorter than the viewport always gaps; fill it or don't pin |
-| Video backdrop visible as a rectangle | the mask was wrong; then the blend mode was wrong | the blend was confined to an isolated group, and the layer forming that group painted no colour — so the only thing available to blend with was nothing |
-| Every font weight looked slightly too light | the font hadn't loaded | `font-700` is not a Tailwind class; it generated no rule and every weight was inherited |
-| Decorative marks looked crooked | needed nudging | they were positioned against a column that stretches; and the two arcs weren't parts of the same circle |
-| Deck named "Forest Green" showed a red board | — | the list was written before looking at the files |
+| Symptom                                              | Wrong guess                                       | Actual cause                                                                                                                                            |
+| ---------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Background glow disappeared a few seconds after load | easing value; heavy overlays                      | `UnrealBloomPass`'s final copy pass writes alpha 1, turning the transparent canvas into an opaque rectangle                                             |
+| Vertical seam beside a full-bleed image              | image too small                                   | Tailwind CDN silently dropped `w-[max(…,…)]` — the rule never existed                                                                                   |
+| Image still wrong after that was fixed               | —                                                 | Preflight's `img { height:auto }` loads after the head and re-clamped it                                                                                |
+| "Mystery strips" during parallax                     | mask needed                                       | a moving layer ran out of image; size from `distance + travel + margin`                                                                                 |
+| Blue band under a pinned hero                        | fixable with a mask                               | a pinned element shorter than the viewport always gaps; fill it or don't pin                                                                            |
+| Video backdrop visible as a rectangle                | the mask was wrong; then the blend mode was wrong | the blend was confined to an isolated group, and the layer forming that group painted no colour — so the only thing available to blend with was nothing |
+| Every font weight looked slightly too light          | the font hadn't loaded                            | `font-700` is not a Tailwind class; it generated no rule and every weight was inherited                                                                 |
+| Decorative marks looked crooked                      | needed nudging                                    | they were positioned against a column that stretches; and the two arcs weren't parts of the same circle                                                 |
+| Deck named "Forest Green" showed a red board         | —                                                 | the list was written before looking at the files                                                                                                        |
 
 ---
 
 ## Changelog
 
+- **Sep 22, 2026** — v2.2. Removed the HTML/Tailwind branch — every block is
+  now delivered as React + Next.js + Tailwind + Motion, since that is where
+  almost all output was actually headed. §2 rewritten from a stack decision
+  to a single stack description. Scroll reveals moved from a vanilla
+  `IntersectionObserver` recipe to Motion's `whileInView`. Dropped the
+  Tailwind Play-CDN-specific limits (Preflight load order, JS-built-element
+  guidance) that only applied to a browser-compiled stylesheet; kept the
+  class-extraction gotchas that still apply under a real build. Output
+  format and self-check no longer ask which branch was picked.
 - **Sep 15, 2026** — v2.1. Corrections from an audit of the four files against
   the Dexpress build. Fixed the stated mechanisms for `position: sticky` and
   `overflow` (scrollport, not cancellation), for blend modes (isolation, not
-  transparency), for CSS animations vs inline styles (a *running* animation
+  transparency), for CSS animations vs inline styles (a _running_ animation
   wins; `forwards` only extends it), for Tailwind arbitrary values (whitespace
   and token extraction, not commas), and for Preflight (specificity, not load
   order). Added the `font-700` class of failure, `dvh` for mobile viewport

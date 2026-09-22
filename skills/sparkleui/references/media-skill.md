@@ -20,37 +20,37 @@ the `rules.md` Appendix is the short version; this is the working detail.
 
 Eight techniques, plus the dial block and a self-check.
 
-| § | Technique | Reach for it when | Came from |
-|---|---|---|---|
-| 1 | **Medium choice** | Deciding between video, 3D, a transparent PNG or stacked layers before building anything | — |
-| 2 | **Subject sizing** | A render has to sit at a designed size and stay sharp — not be cropped to fill | H5 Dexpress |
-| 3 | **Cursor scrub** | A character should turn to follow the viewer's mouse | H3 AI ROBO → H5 Dexpress |
-| 4 | **Backdrop removal** | A supplied clip arrives on a flat background that has to disappear against the page | H5 Dexpress |
-| 5 | **Cross-fade & per-item tint** | Switching between large renders, and letting the active one colour its surroundings | S1 Pick Your Deck |
-| 6 | **Anchored decoration** | Marker notes, arcs, dots and arrows have to hold their position around a subject at every width | H5 Dexpress |
-| 7 | **Scroll parallax** | Depth on scroll — layers at different speeds, occlusion rather than fade | H4 Traveltrip |
-| 8 | **Three.js** | The brief needs true perspective or a camera that moves | H2 MADAR |
-| 9 | Dial block | Every media block — the values the user tunes | — |
-| 10 | Self-check | Before delivering anything with media in it | — |
+| §   | Technique                      | Reach for it when                                                                               | Came from                |
+| --- | ------------------------------ | ----------------------------------------------------------------------------------------------- | ------------------------ |
+| 1   | **Medium choice**              | Deciding between video, 3D, a transparent PNG or stacked layers before building anything        | —                        |
+| 2   | **Subject sizing**             | A render has to sit at a designed size and stay sharp — not be cropped to fill                  | H5 Dexpress              |
+| 3   | **Cursor scrub**               | A character should turn to follow the viewer's mouse                                            | H3 AI ROBO → H5 Dexpress |
+| 4   | **Backdrop removal**           | A supplied clip arrives on a flat background that has to disappear against the page             | H5 Dexpress              |
+| 5   | **Cross-fade & per-item tint** | Switching between large renders, and letting the active one colour its surroundings             | S1 Pick Your Deck        |
+| 6   | **Anchored decoration**        | Marker notes, arcs, dots and arrows have to hold their position around a subject at every width | H5 Dexpress              |
+| 7   | **Scroll parallax**            | Depth on scroll — layers at different speeds, occlusion rather than fade                        | H4 Traveltrip            |
+| 8   | **Three.js**                   | The brief needs true perspective or a camera that moves                                         | H2 MADAR                 |
+| 9   | Dial block                     | Every media block — the values the user tunes                                                   | —                        |
+| 10  | Self-check                     | Before delivering anything with media in it                                                     | —                        |
 
 **Two related techniques live elsewhere**, because they aren't media:
 
-| Technique | File |
-|---|---|
+| Technique                                                      | File                               |
+| -------------------------------------------------------------- | ---------------------------------- |
 | **Auto-advancing selector** (the rail that steps on by itself) | `design.md` → Interaction Patterns |
-| **Scroll reveals** (sections animating in as they're reached) | `rules.md` §5 |
+| **Scroll reveals** (sections animating in as they're reached)  | `rules.md` §5                      |
 
 ---
 
 ## 1. Choosing the medium
 
-| The brief needs | Use | Not |
-|---|---|---|
-| A character that reacts to the viewer | video, scrubbed by cursor | a still image tilted with CSS — it reads as a rotating sticker |
-| True perspective, or a camera that moves | Three.js | hand-plotted SVG perspective; it reads flat and cannot re-converge |
-| A subject at a designed size on a designed background | transparent PNG | a clip or photo with a baked backdrop |
-| Depth on scroll | separate layers at different speeds | one image with a zoom |
-| A product in five colourways | five supplied renders | one render recoloured by filter |
+| The brief needs                                       | Use                                 | Not                                                                |
+| ----------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------ |
+| A character that reacts to the viewer                 | video, scrubbed by cursor           | a still image tilted with CSS — it reads as a rotating sticker     |
+| True perspective, or a camera that moves              | Three.js                            | hand-plotted SVG perspective; it reads flat and cannot re-converge |
+| A subject at a designed size on a designed background | transparent PNG                     | a clip or photo with a baked backdrop                              |
+| Depth on scroll                                       | separate layers at different speeds | one image with a zoom                                              |
+| A product in five colourways                          | five supplied renders               | one render recoloured by filter                                    |
 
 **Don't build elaborate stand-in artwork.** A hand-drawn SVG character that
 looks wrong is worse than empty space, and it will be asked for twice: once
@@ -69,8 +69,8 @@ times its intended size to satisfy the first.
 **For a subject: size by one axis and let the other follow.**
 
 ```js
-el.style.height = (pct / 100 * container.clientHeight) + 'px';
-el.style.width  = 'auto';
+el.style.height = (pct / 100) * container.clientHeight + "px";
+el.style.width = "auto";
 ```
 
 Nothing is stretched, nothing is cropped, and every pixel draws once — which
@@ -91,7 +91,7 @@ source.
 
 The effect: the pointer's horizontal position maps onto a clip's playhead, so
 a character turns to follow the viewer. Frames, not transforms — it looks
-real because it *is* the artwork, seen from another angle.
+real because it _is_ the artwork, seen from another angle.
 
 **Mapping.** Absolute position, never accumulated movement. Deltas drift over
 a session and have no neutral to return to.
@@ -113,21 +113,25 @@ failed range request means `seeked` never fires, and without a way out the
 effect is dead for the rest of the session:
 
 ```js
-var FRAME_T = 1 / 30;               // don't chase sub-frame differences
+var FRAME_T = 1 / 30; // don't chase sub-frame differences
 
-function release() { seeking = false; clearTimeout(guard); }
-vid.addEventListener('seeked', release);
+function release() {
+  seeking = false;
+  clearTimeout(guard);
+}
+vid.addEventListener("seeked", release);
 
 function tick() {
   smoothTime += (targetTime - smoothTime) * SCRUB.ease;
 
   if (!seeking && Math.abs(vid.currentTime - smoothTime) > FRAME_T) {
     seeking = true;
-    guard = setTimeout(release, 400);   // the seek never landed; carry on
+    guard = setTimeout(release, 400); // the seek never landed; carry on
     vid.currentTime = smoothTime;
   }
 
-  if (Math.abs(targetTime - smoothTime) > FRAME_T / 4) raf = requestAnimationFrame(tick);
+  if (Math.abs(targetTime - smoothTime) > FRAME_T / 4)
+    raf = requestAnimationFrame(tick);
   else raf = null;
 }
 ```
@@ -169,13 +173,13 @@ against the page.
 
 **This is the rule that cost the most, and it is easy to state backwards.**
 
-`mix-blend-mode` blends an element with everything painted behind it *within
-the same group*. With no isolating ancestor, that group is the page, and the
+`mix-blend-mode` blends an element with everything painted behind it _within
+the same group_. With no isolating ancestor, that group is the page, and the
 element blends happily with the page background. What confines it is
 **isolation**: a stacking context (a non-`static` position with a
 non-`auto` `z-index`), a mask, a filter, `opacity` below 1, or an explicit
 `isolation: isolate`. Once an ancestor forms that group, the blend can only
-see what is painted *inside* it — and if that is nothing, the clip's backdrop
+see what is painted _inside_ it — and if that is nothing, the clip's backdrop
 survives as a visible rectangle no matter which mode you set.
 
 The trap is that the obvious way to hold media — an absolutely positioned
@@ -184,12 +188,14 @@ deciding to.
 
 **So: whatever layer forms the group must paint the surface colour.**
 
-```html
-<!-- z-0 already forms the group; isolation makes that intent explicit,
-     and bg-card is what the blend actually has to work against. -->
-<div class="absolute inset-0 z-0 bg-card [isolation:isolate]">
-  <video style="mix-blend-mode: darken"></video>
-</div>
+```jsx
+{
+  /* z-0 already forms the group; isolation makes that intent explicit,
+    and bg-card is what the blend actually has to work against. */
+}
+<div className="absolute inset-0 z-0 bg-card [isolation:isolate]">
+  <video style={{ mixBlendMode: "darken" }} />
+</div>;
 ```
 
 ### Which mode
@@ -197,7 +203,7 @@ deciding to.
 - **`darken`** — takes the **minimum of each channel** independently. Where
   the clip's backdrop is lighter than the surface it disappears; that's the
   win. But note the two consequences: a backdrop lighter in one channel and
-  darker in another comes through **tinted**, and anything in the *subject*
+  darker in another comes through **tinted**, and anything in the _subject_
   lighter than the surface — white highlights, teeth, eye whites, a pale
   sole — is flattened to the surface colour. On an off-white page that
   flattening is usually invisible. On a mid-tone page it is not, and
@@ -209,22 +215,29 @@ deciding to.
 ### Feather every edge anyway
 
 The two colours are rarely an exact match in all three channels, so the
-*outline* of the clip can still be picked out as a hairline even when the
+_outline_ of the clip can still be picked out as a hairline even when the
 interior looks right. Fading all four edges means there is no boundary to see.
 
 Two gradients, intersected:
 
 ```js
 function band(dir, a, b) {
-  return 'linear-gradient(to ' + dir + ', rgba(0,0,0,0) 0%, rgba(0,0,0,1) ' + a +
-         '%, rgba(0,0,0,1) ' + (100 - b) + '%, rgba(0,0,0,0) 100%)';
+  return (
+    "linear-gradient(to " +
+    dir +
+    ", rgba(0,0,0,0) 0%, rgba(0,0,0,1) " +
+    a +
+    "%, rgba(0,0,0,1) " +
+    (100 - b) +
+    "%, rgba(0,0,0,0) 100%)"
+  );
 }
-var m = band('bottom', top, bottom) + ',' + band('right', side, side);
+var m = band("bottom", top, bottom) + "," + band("right", side, side);
 
-el.style.maskImage           = m;
-el.style.webkitMaskImage     = m;   // required, or older Safari masks nothing
-el.style.maskComposite       = 'intersect';
-el.style.webkitMaskComposite = 'source-in';
+el.style.maskImage = m;
+el.style.webkitMaskImage = m; // required, or older Safari masks nothing
+el.style.maskComposite = "intersect";
+el.style.webkitMaskComposite = "source-in";
 ```
 
 Each gradient masks one pair of opposite edges; only the overlap stays opaque.
@@ -234,7 +247,7 @@ property, Safari before 15.4 applies no mask at all, and the composite
 property then has nothing to act on.
 
 **Know the failure mode.** If `mask-composite` isn't understood, the initial
-value is `add` — the *union* of the two alphas, not a sum to opaque. The
+value is `add` — the _union_ of the two alphas, not a sum to opaque. The
 union is fully opaque along all four edge midpoints and only fades at the
 corners, so the picture survives intact but the hairline comes straight
 back. Safe, but not silent: if you still see an edge, check whether the
@@ -274,10 +287,20 @@ glow and swatch from it:
 ```js
 function tint(hex, a) {
   var n = parseInt(hex.slice(1), 16);
-  return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+  return (
+    "rgba(" +
+    ((n >> 16) & 255) +
+    "," +
+    ((n >> 8) & 255) +
+    "," +
+    (n & 255) +
+    "," +
+    a +
+    ")"
+  );
 }
-ring.style.borderColor     = tint(item.tint, 0.22);
-glow.style.backgroundColor = tint(item.tint, 0.10);
+ring.style.borderColor = tint(item.tint, 0.22);
+glow.style.backgroundColor = tint(item.tint, 0.1);
 ```
 
 Keep the alphas low — 0.1 to 0.25. The colour should be felt, not seen; at
@@ -288,8 +311,8 @@ changes colour.
 
 ## 6. Anchoring decoration to a subject
 
-Marker notes, orbit arcs, dots and arrows must keep their position *relative
-to the subject*, not to the column they happen to sit in. A column stretches
+Marker notes, orbit arcs, dots and arrows must keep their position _relative
+to the subject_, not to the column they happen to sit in. A column stretches
 with the window; the subject doesn't. Position marks against the column and
 they drift apart at every width except the one they were tuned at.
 
@@ -297,8 +320,8 @@ they drift apart at every width except the one they were tuned at.
 it**, in a normalised coordinate system. Using the subject's halo radius as
 100 units:
 
-```html
-<svg viewBox="-160 -120 320 240"><!-- 3.2 radii wide, 2.4 tall --></svg>
+```jsx
+<svg viewBox="-160 -120 320 240">{/* 3.2 radii wide, 2.4 tall */}</svg>
 ```
 
 JS then sets that layer's size and transform from the same centre and radius
@@ -352,7 +375,7 @@ Only when the brief needs true perspective or a camera move.
   offset perpendicular). Bonus: correct perspective taper for free.
 - **Depth-only occluders** turn a see-through wireframe into a readable
   object: `colorWrite:false`, `depthWrite:true`, plus `polygonOffset`. Needed
-  for *every* enclosed volume — one missing under-body occluder lets road
+  for _every_ enclosed volume — one missing under-body occluder lets road
   lanes draw straight through a chassis.
 - **`UnrealBloomPass` destroys canvas transparency.** Its final copy pass
   writes alpha 1, so the canvas goes opaque over any CSS background. Stacked
@@ -371,15 +394,15 @@ here. Name the values for what they do, in units a designer thinks in.
 
 ```js
 var FRAME = {
-  height:     74,          // % of the panel's height — how big the subject is
-  x:          2,           // nudge right (+) / left (−), % of panel width
-  y:          3,           // nudge down (+) / up (−), % of panel height
-  blend:      'darken',    // how the clip's own backdrop is removed
-  fadeTop:    8,           // % of height the top edge dissolves over
+  height: 74, // % of the panel's height — how big the subject is
+  x: 2, // nudge right (+) / left (−), % of panel width
+  y: 3, // nudge down (+) / up (−), % of panel height
+  blend: "darken", // how the clip's own backdrop is removed
+  fadeTop: 8, // % of height the top edge dissolves over
   fadeBottom: 9,
-  fadeSides:  8,
-  halo:       56,          // pale circle behind the subject, % of panel height
-  marks:      1            // >1 pushes the drawn notes further out
+  fadeSides: 8,
+  halo: 56, // pale circle behind the subject, % of panel height
+  marks: 1, // >1 pushes the drawn notes further out
 };
 
 var SCRUB = { range: 1, ease: 0.14, invert: true };

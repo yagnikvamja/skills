@@ -21,7 +21,7 @@ SparkleUI does **not** use a fixed color palette, font pairing, or visual
 style. Every block should be a **unique creative execution**, generated fresh
 from the brand and mood the user describes.
 
-What stays fixed is not the *look*, but the **structural DNA** — the layout
+What stays fixed is not the _look_, but the **structural DNA** — the layout
 logic that makes a block feel premium and complete, whatever visual style is
 applied to it.
 
@@ -99,16 +99,16 @@ not to the hero (see Landing Pages).
 For each new block, choose **one coherent direction** across all of these —
 not mix-and-match:
 
-| Dimension | Range of options |
-|---|---|
-| Background treatment | cinematic photography, 3D render, illustration, abstract gradient, video/motion loop |
-| Typography mood | bold condensed display, elegant serif editorial, clean geometric sans, playful rounded |
-| Layout | centered, left-aligned with right visual, asymmetric/oversized text, split-screen |
-| Color mood | derived from the background itself, not a preset palette |
-| Tone of copy | punchy/gaming, calm/luxury, technical/SaaS, warm/wellness |
+| Dimension            | Range of options                                                                       |
+| -------------------- | -------------------------------------------------------------------------------------- |
+| Background treatment | cinematic photography, 3D render, illustration, abstract gradient, video/motion loop   |
+| Typography mood      | bold condensed display, elegant serif editorial, clean geometric sans, playful rounded |
+| Layout               | centered, left-aligned with right visual, asymmetric/oversized text, split-screen      |
+| Color mood           | derived from the background itself, not a preset palette                               |
+| Tone of copy         | punchy/gaming, calm/luxury, technical/SaaS, warm/wellness                              |
 
 **Rule of thumb:** background, typography and copy tone all reinforce the
-*same* feeling. A playful 3D-character background does not take a formal serif
+_same_ feeling. A playful 3D-character background does not take a formal serif
 headline. Pick one emotional register and commit to it everywhere.
 
 ---
@@ -116,20 +116,20 @@ headline. Pick one emotional register and commit to it everywhere.
 ## Mood → Treatment Mapping
 
 Pick the row that matches the brand mood. Don't blend rows. If the mood
-doesn't match a row exactly, extend the *closest* row's logic rather than
+doesn't match a row exactly, extend the _closest_ row's logic rather than
 inventing an unrelated direction.
 
-| Mood | Background | Typography | Layout | CTA style | Color approach |
-|---|---|---|---|---|---|
-| **Gaming / Character** | 3D render or illustrated character, centered or off-center | Bold rounded or condensed sans, ALL CAPS ok | Centered subject, text top-left, social proof top-right | Rounded pill, dark bg + bright accent | Cool tones, high saturation on accent only |
-| **Adventure / Energetic** | Dynamic photo/illustration with implied motion | Bold condensed sans, ALL CAPS | Subject fills frame, headline right-aligned or overlapping | Solid pill, white or bright accent | Warm/saturated, high-contrast |
-| **Moody / Atmospheric** | Dark cinematic render, desaturated, high contrast | Elegant serif or thin sans, sentence case | Left text block, oversized translucent word behind subject | Ghost/outline button | Near-monochrome + one accent |
-| **Lifestyle / Organic** | Warm natural imagery (light, water, nature) | Clean geometric sans, sentence case | Text left, overlapping rounded cards right | Pill, warm neutral | Warm neutrals, soft gradients |
-| **Editorial / Mystical** | Painterly, centered wordmark treatment | Large elegant serif as focal element | Centered, minimal nav, slide counter bottom-left | Text link or thin outline | Deep jewel or muted earth |
-| **SaaS / Corporate** | Abstract gradient, product shot, subtle 3D | Clean geometric sans, sentence case | Centered or left text, product visual right | Solid pill, brand primary | Brand primary + neutral greys |
-| **Bright Commerce** | Cut-out product or character on a warm off-white panel, hand-drawn marginalia | Heavy geometric sans display + a marker face for notes | Three columns: copy left, subject centre, spec rows right | Solid pill with arrow | Off-white surface, one strong brand colour, greys for support |
-| **Luxury / Premium** | High-end photography, muted, generous negative space | Refined serif or thin sans | Left-aligned, lots of whitespace | Minimal outline, no bright colours | Black/white/gold or monochrome + metallic |
-| **Wellness / Calm** | Soft nature or abstract, light and airy | Rounded sans or soft serif, sentence case | Centered, generous spacing | Soft pill, pastel | Pastels, low saturation |
+| Mood                      | Background                                                                    | Typography                                             | Layout                                                     | CTA style                             | Color approach                                                |
+| ------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------- |
+| **Gaming / Character**    | 3D render or illustrated character, centered or off-center                    | Bold rounded or condensed sans, ALL CAPS ok            | Centered subject, text top-left, social proof top-right    | Rounded pill, dark bg + bright accent | Cool tones, high saturation on accent only                    |
+| **Adventure / Energetic** | Dynamic photo/illustration with implied motion                                | Bold condensed sans, ALL CAPS                          | Subject fills frame, headline right-aligned or overlapping | Solid pill, white or bright accent    | Warm/saturated, high-contrast                                 |
+| **Moody / Atmospheric**   | Dark cinematic render, desaturated, high contrast                             | Elegant serif or thin sans, sentence case              | Left text block, oversized translucent word behind subject | Ghost/outline button                  | Near-monochrome + one accent                                  |
+| **Lifestyle / Organic**   | Warm natural imagery (light, water, nature)                                   | Clean geometric sans, sentence case                    | Text left, overlapping rounded cards right                 | Pill, warm neutral                    | Warm neutrals, soft gradients                                 |
+| **Editorial / Mystical**  | Painterly, centered wordmark treatment                                        | Large elegant serif as focal element                   | Centered, minimal nav, slide counter bottom-left           | Text link or thin outline             | Deep jewel or muted earth                                     |
+| **SaaS / Corporate**      | Abstract gradient, product shot, subtle 3D                                    | Clean geometric sans, sentence case                    | Centered or left text, product visual right                | Solid pill, brand primary             | Brand primary + neutral greys                                 |
+| **Bright Commerce**       | Cut-out product or character on a warm off-white panel, hand-drawn marginalia | Heavy geometric sans display + a marker face for notes | Three columns: copy left, subject centre, spec rows right  | Solid pill with arrow                 | Off-white surface, one strong brand colour, greys for support |
+| **Luxury / Premium**      | High-end photography, muted, generous negative space                          | Refined serif or thin sans                             | Left-aligned, lots of whitespace                           | Minimal outline, no bright colours    | Black/white/gold or monochrome + metallic                     |
+| **Wellness / Calm**       | Soft nature or abstract, light and airy                                       | Rounded sans or soft serif, sentence case              | Centered, generous spacing                                 | Soft pill, pastel                     | Pastels, low saturation                                       |
 
 ### Reference Direction Library
 
@@ -179,54 +179,64 @@ The top-of-page, first-viewport block.
 
 **Anatomy**
 
-| Element | Rule |
-|---|---|
-| Nav bar | Logo left, links centre/right, one action item right. **Page-level and sticky — outside the hero panel, not inside it.** |
-| Eyebrow/badge (optional) | Small pill or tracked caps line, max 4 words |
-| Headline | 1 element, max 2 lines and ~8 words per line in Mode A; a recreation follows the supplied design |
-| Subtext | 1 element, 1–2 sentences, max ~25 words |
-| Primary CTA | 1 pill/rounded button, verb-first label ("Shop Decks", "Start Now") |
-| Secondary CTA (optional) | Circular icon button or ghost text link |
-| Background | Fills the first screen below the nav |
-| Readability layer | Scrim, gradient or `text-shadow` wherever text meets complexity |
-| Footer strip (optional) | Trust logos, stats or spec rows along the bottom |
+| Element                  | Rule                                                                                                                     |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| Nav bar                  | Logo left, links centre/right, one action item right. **Page-level and sticky — outside the hero panel, not inside it.** |
+| Eyebrow/badge (optional) | Small pill or tracked caps line, max 4 words                                                                             |
+| Headline                 | 1 element, max 2 lines and ~8 words per line in Mode A; a recreation follows the supplied design                         |
+| Subtext                  | 1 element, 1–2 sentences, max ~25 words                                                                                  |
+| Primary CTA              | 1 pill/rounded button, verb-first label ("Shop Decks", "Start Now")                                                      |
+| Secondary CTA (optional) | Circular icon button or ghost text link                                                                                  |
+| Background               | Fills the first screen below the nav                                                                                     |
+| Readability layer        | Scrim, gradient or `text-shadow` wherever text meets complexity                                                          |
+| Footer strip (optional)  | Trust logos, stats or spec rows along the bottom                                                                         |
 
 **The hero is a panel, not the page.** Two consequences:
 
-*The nav is not part of the hero.* It sits above every panel, stays sticky
+_The nav is not part of the hero._ It sits above every panel, stays sticky
 through the whole page, and is transparent over the hero until the page moves.
 A nav inside the hero panel sticks only within that panel — the panel needs
 `overflow: hidden` to clip its media, which makes it the sticky scrollport —
 so it scrolls away with the hero. `rules.md` §5 has the implementation.
 
-*The hero fills what the nav leaves,* not the whole viewport:
+_The hero fills what the nav leaves,_ not the whole viewport:
 
 ```css
-.hero-panel { min-height: calc(100dvh - var(--nav-space)); }
+.hero-panel {
+  min-height: calc(100dvh - var(--nav-space));
+}
 ```
 
-with `--nav-space` measured from the real bar *including its wrapper padding
-and any top padding on the panel itself*, re-measured on resize and on
+with `--nav-space` measured from the real bar _including its wrapper padding
+and any top padding on the panel itself_, re-measured on resize and on
 `document.fonts.ready`. `dvh` rather than `vh`, or the hero overflows a mobile
 screen by the height of the URL bar.
 
-*The hero rounds its top corners only.* The section below butts straight onto
+_The hero rounds its top corners only._ The section below butts straight onto
 it with no gap, so the page reads as one continuous surface.
 
 **Readability patterns**
 
-```html
-<!-- Bottom-to-top gradient, for centered/bottom-heavy text -->
-<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+```jsx
+{
+  /* Bottom-to-top gradient, for centered/bottom-heavy text */
+}
+<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />;
 
-<!-- Left-to-right gradient, for split/left-aligned text -->
-<div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/10 to-transparent"></div>
+{
+  /* Left-to-right gradient, for split/left-aligned text */
+}
+<div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/10 to-transparent" />;
 
-<!-- Full scrim, for busy backgrounds needing centered text -->
-<div class="absolute inset-0 bg-black/40"></div>
+{
+  /* Full scrim, for busy backgrounds needing centered text */
+}
+<div className="absolute inset-0 bg-black/40" />;
 
-<!-- Backdrop blur card, for text in a contained box -->
-<div class="backdrop-blur-md bg-black/30 rounded-2xl p-8"></div>
+{
+  /* Backdrop blur card, for text in a contained box */
+}
+<div className="backdrop-blur-md bg-black/30 rounded-2xl p-8" />;
 ```
 
 Match the pattern to the layout. Don't put a full scrim over a bright
@@ -328,14 +338,9 @@ both audiences:
    that could be pasted into an AI coding tool to regenerate this design.
 2. **Code version** — see the stack rule below.
 
-### Stack — decided by where the block is going
+### Stack — React + Next.js + Tailwind + Motion, always
 
-There is no single default. Pick the branch that matches the destination and
-**say which branch was picked, and why, in one plain sentence** at the top of
-the response.
-
-**Branch A — React + Next.js + Tailwind + Motion.** For blocks headed into a
-real codebase.
+There is no other branch. Every block is delivered as a codebase component.
 
 - React components using the **`motion`** package, imported as
   `import { motion } from "motion/react"`.
@@ -344,32 +349,15 @@ real codebase.
 - Delivered as standalone component files, PascalCase, **`.jsx`** unless the
   user says the project is TypeScript — then `.tsx`. Not wrapped in a
   preview page.
+- Scroll reveals use Motion's `whileInView` (`rules.md` §5), not a
+  load-time delay.
+- **A theme block is required** — a plain config object or a small
+  `theme.js`/Tailwind config extension. Tokens are named for their role, not
+  their colour — `page`, `card`, `ink`, `grey`, plus one or two brand names —
+  so the same markup survives a palette change.
+- Fonts: `next/font` (or the project's existing font-loading convention) so
+  loading is handled by the framework rather than a manual `preconnect`.
 - Note any imports the user needs to install.
-
-**Branch B — HTML + Tailwind.** For standalone blocks: previews, copy-paste
-distribution, anything the user wants to open and look at immediately.
-
-- A single self-contained HTML file with the Tailwind CDN and fonts linked
-  in the head — save it, open it, it renders with no setup.
-- Animation in CSS keyframes, no libraries. Scroll reveals use an
-  `IntersectionObserver` (`rules.md` §5).
-- **A theme block is required**, in a plain `<script>` *after* the CDN
-  `<script src>`. Tokens are named for their role, not their colour —
-  `page`, `card`, `ink`, `grey`, plus one or two brand names — so the same
-  markup survives a palette change.
-- Fonts: `preconnect` to both Google Font origins and `display=swap`. Late
-  font load is why any measured height must be re-measured on
-  `document.fonts.ready`.
-
-**Why the split matters:** React and Motion cannot be previewed inline in
-chat — there is no build step. HTML can. So exploration and visual review
-happen fastest in Branch B, while Branch A is the deliverable for real work.
-When a block will need both, build and review in HTML first, then convert.
-
-**A long-running page stays in one branch.** Once a page is being built and
-refined in Branch B, don't convert it mid-flight because a new section needs
-state — a rail, a carousel and a cursor effect are all a few lines of plain
-JavaScript. Convert when the user asks for the codebase version, not before.
 
 ### Animation style (both branches)
 
@@ -387,7 +375,7 @@ JavaScript. Convert when the user asks for the codebase version, not before.
   geometric SVG wherever the mood allows, so the block renders with zero
   external assets.
 - **CDN URLs** for supplied artwork, video or 3D models. Never local file
-  paths. A page opened from disk *will* show a relative `<img>` or `<video>`,
+  paths. A page opened from disk _will_ show a relative `<img>` or `<video>`,
   but anything loaded through `fetch`/XHR or a module script — which is how
   every `.glb` loader works — is blocked by the opaque `file:` origin and
   fails silently.
@@ -440,9 +428,8 @@ cinematic quality.
 **Step 4 — Response structure:**
 
 ```
-## Mode & stack
-Original generation. HTML + Tailwind — static layout, no build step, so you
-can open it straight away.
+## Mode
+Original generation.
 
 ## Creative direction
 Moody/Mystical — dark atmospheric background, elegant serif headline,
@@ -509,6 +496,14 @@ Decorative word hides below lg.
 
 ## Changelog
 
+- **Sep 22, 2026** — v2.1. **Dropped Branch B (HTML + Tailwind).** Almost
+  every block was ending up in a codebase anyway, so the destination-based
+  split no longer earned its complexity. Output Requirements now describes
+  one stack — React + Next.js + Tailwind + Motion — with no branch choice
+  or "why React was necessary" framing. Readability-pattern snippets
+  converted from raw HTML to JSX. The worked example's response structure
+  dropped the stack line. The stack is never asked about (`rules.md` §1) and
+  never stated as a choice (`rules.md` §9) — it's simply the format.
 - **Sep 15, 2026** — v2. **`hero-skill.md` merged in and retired** — a hero
   is a block, so a separate file only split the rules across two places. Its
   contents now live here: the Mood → Treatment mapping (9 rows, including the
