@@ -6,26 +6,38 @@ disable-model-invocation: true
 
 ## 1. List the third-party skills
 
-Read [`THIRD-PARTY.md`](./THIRD-PARTY.md). It groups skills into categories
-(e.g. **Design skills**, **Code skills**) at the `##` level, and within each
-category splits skills into **Core** (used on every section) and
-**Situational** (installed, but only invoked when the task calls for it) at
-the `###` level — a category may currently only have a Core tier if no
-Situational skills exist for it yet. Within each tier, skills are grouped by
-their source, each with the `Install` command that entry actually needs.
-Present the full file to the user, grouped the same way: category by
-category, tier by tier within each.
+Read [`THIRD-PARTY.md`](./THIRD-PARTY.md) **in full, every time** — new
+categories get appended to it over time (at the time of writing: Design
+skills, Code skills, QA skills, and more may exist by the time you read
+this). Do not rely on any category names mentioned elsewhere, including in
+this file — always derive the actual list of categories and tiers by
+scanning the file's current headings. It groups skills into categories at
+the `##` level, and within each category splits skills into **Core** (used
+on every section) and **Situational** (installed, but only invoked when the
+task calls for it) at the `###` level — a category may only have a Core tier
+if no Situational skills exist for it yet. Within each tier, skills are
+grouped by their source, each with the `Install` command that entry actually
+needs. Present the full file to the user, grouped the same way: category by
+category, tier by tier within each — every `##` category found in the file,
+not just the ones this skill's instructions happen to mention by name.
 
 ## 2. Ask which to install
 
-Ask which skills to install as **one multi-select question per tier that
-exists** — e.g. "which Design → Core skills?", then "which Design →
-Situational skills?", then "which Code → Core skills?", and so on for any
-further categories/tiers in the file. Never merge two tiers (even within the
-same category) or two categories into one question: a user who wants every
-Design-Core skill may still want only a couple of Situational ones, and a
-user working on QA may want all of Code but none of Design. One question per
-`###` tier keeps those choices independent.
+Ask which skills to install as **one multi-select question per `###` tier
+that exists in the file right now** — e.g. "which Design → Core skills?",
+"which Design → Situational skills?", "which Code → Core skills?", "which QA
+→ Core skills?", and one more per any further category/tier appended to the
+file later. Never merge two tiers (even within the same category) or two
+categories into one question: a user who wants every Design-Core skill may
+still want only a couple of Situational ones, and a user working on QA may
+want all of Code but none of Design. One question per `###` tier keeps those
+choices independent.
+
+The `AskUserQuestion` tool caps out at 4 questions per call. If the file
+currently has 4 or fewer tiers, ask them all in a single call. **If it has
+more than 4, split across multiple `AskUserQuestion` calls** rather than
+dropping any tier — silently skipping the tiers that don't fit is the exact
+failure this note exists to prevent.
 
 A skill that is cross-listed under more than one tier (e.g.
 `vercel-composition-patterns` appears under both Design → Core and Code →
@@ -68,6 +80,14 @@ for any extra agent the user asked for in step 2.
   command from THIRD-PARTY.md is enough — check its flags actually pin the
   target tools (default: `.claude` + `.agents` only) before running it, and
   add a flag for any extra agent the user asked for.
+- Some entries aren't a single runnable command at all — an MCP server
+  registered via `claude mcp add` rather than the `skills` CLI (e.g.
+  Playwright MCP), or template files meant to be copied by hand into
+  `.claude/commands/`, `.claude/agents/` or `CLAUDE.md` (e.g. the
+  design-review workflow). Follow that entry's own instructions in
+  THIRD-PARTY.md literally — fetch/clone the repo if needed, then run the
+  registration command or copy the named files to the named paths — instead
+  of forcing it through the `skills` CLI pattern.
 
 Repeat once per distinct source that has a pick. **A source that shows up in
 more than one tier or category** (e.g. `emilkowalski/skill` under Design →
