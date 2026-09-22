@@ -31,13 +31,32 @@ file later. Never merge two tiers (even within the same category) or two
 categories into one question: a user who wants every Design-Core skill may
 still want only a couple of Situational ones, and a user working on QA may
 want all of Code but none of Design. One question per `###` tier keeps those
-choices independent.
+choices independent. The options for a tier's question are that tier's
+distinct `Install`-level sources (each top-level bullet — a multi-skill
+source like `emilkowalski/skill` is still one option, not one per skill).
 
-The `AskUserQuestion` tool caps out at 4 questions per call. If the file
-currently has 4 or fewer tiers, ask them all in a single call. **If it has
-more than 4, split across multiple `AskUserQuestion` calls** rather than
-dropping any tier — silently skipping the tiers that don't fit is the exact
-failure this note exists to prevent.
+**`AskUserQuestion` has two separate caps, and both matter here: at most 4
+questions per call, AND at most 4 options within any single question.**
+Count each tier's sources before building its question:
+
+- A tier with 4 or fewer sources gets one question, no problem.
+- **A tier with more than 4 sources cannot be asked as a single question —
+  it must be split into multiple questions covering that same tier**, e.g.
+  "Design → Core (1/2)" with its first 4 sources and "Design → Core (2/2)"
+  with the rest. This is not optional: Design → Core and Design →
+  Situational each currently have 7 sources, well past the 4-option limit,
+  so each of those two tiers needs (at least) two questions on its own.
+  Recount from the file rather than trusting these numbers once more
+  sources get added.
+- Once every tier's questions are built, batch them across
+  `AskUserQuestion` calls, **at most 4 questions per call**, calling it
+  again for the remainder rather than truncating.
+
+Do not silently drop a tier because it doesn't fit in one question or one
+call — that failure mode is exactly why Design's two tiers (7 options each)
+have gone unasked before: they were the ones that didn't fit within a single
+question's 4-option limit, while Code and QA (2 sources each) fit easily and
+got asked. Pagination, not omission, is the fix.
 
 A skill that is cross-listed under more than one tier (e.g.
 `vercel-composition-patterns` appears under both Design → Core and Code →
